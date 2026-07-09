@@ -1,5 +1,11 @@
 # Day 1
 
+- github에 src 폴더 등 몇몇 개는 왜 안 보이는가? 
+: 빈 폴더는 저장하지 않음.
+
+- GIT 작업 단계
+: 파일 수정 > GIT ADD > GIT COMMIT > GIT PUSH
+
 ## What I did
 
 - Git installed
