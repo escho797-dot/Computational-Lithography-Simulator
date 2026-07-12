@@ -1,13 +1,18 @@
 import matplotlib.pyplot as plt
-from lithography import create_mask
-from lithography import simulate_lithography
+from lithography import (
+    create_mask,
+    simulate_lithography
+)
+
 from opc import (
     calculate_difference,
     calculate_error_metrics,
     calculate_cd,
-    calculate_edges
+    calculate_edges,
+    calculate_signed_error,
+    calculate_epe,
+    check_resolution
 )
-
 
 def show_difference(target, resist, difference):
     # Figure 생성
@@ -35,6 +40,15 @@ def show_difference(target, resist, difference):
     plt.show()
     return
 
+def show_signed_error(error):
+    plt.figure(figsize=(6,6))
+    plt.imshow(error, cmap="bwr", vmin=-1, vmax=1)
+    # 파랑(-1): over-print / 하양(0): correct / 빨강(1): under-print
+    plt.title("Signed Error Map")
+    plt.colorbar()
+    plt.axis("off")
+    plt.show()
+
 target = create_mask()
 mask = create_mask()
 
@@ -56,3 +70,15 @@ print(f"Right Edge : {right}")
 
 cd = calculate_cd(resist)
 print(f"CD Width   : {cd} pixels")
+
+#signed_error
+signed_error = calculate_signed_error(target, resist)
+show_signed_error(signed_error)
+
+#EPE
+left_epe, right_epe = calculate_epe(target, resist)
+print(f"Left EPE  : {left_epe} pixels")
+print(f"Right EPE : {right_epe} pixels")
+
+resolution = check_resolution(resist)
+print(f"Resolution Status : {resolution}")

@@ -18,7 +18,7 @@ def calculate_error_metrics(target, difference):
     return error_pixels, error_rate  
 
 def calculate_cd(resist, row=256): 
-    left, right = calculate_edge(resist, row=256)
+    left, right = calculate_edges(resist, row)
     if left is None:
         return 0
     return right - left + 1
@@ -30,3 +30,4 @@ def calculate_edges(resist, row=256):
         return None, None
     else:  
         return indices[0], indices[-1] #width, left egde, right edge
+    
